@@ -19,6 +19,11 @@
       justify-content: center;
     }
 
+    .blur {
+      filter: blur(5px);
+      transition: filter 0.3s ease;
+    }
+
     .container {
       background-color: white;
       border-radius: 12px;
@@ -26,6 +31,8 @@
       width: 100%;
       max-width: 600px;
       box-shadow: 0 0 20px rgba(0,0,0,0.05);
+      position: relative;
+      z-index: 1;
     }
 
     h1 {
@@ -84,8 +91,8 @@
       top: 0;
       width: 100%;
       height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.5);
+      backdrop-filter: blur(5px);
+      background-color: rgba(0, 0, 0, 0.2);
     }
 
     .modal-content {
@@ -97,6 +104,7 @@
       max-width: 500px;
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
       position: relative;
+      z-index: 100;
     }
 
     .close {
@@ -115,7 +123,7 @@
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="conteudo">
     <h1>App com Modal</h1>
 
     <label for="nome">Seu Nome:</label>
@@ -156,20 +164,21 @@
 
     function abrirModal() {
       document.getElementById('meuModal').style.display = 'block';
+      document.getElementById('conteudo').classList.add('blur');
     }
 
     function fecharModal() {
       document.getElementById('meuModal').style.display = 'none';
+      document.getElementById('conteudo').classList.remove('blur');
     }
 
     // Fecha o modal ao clicar fora dele
     window.onclick = function(event) {
       const modal = document.getElementById('meuModal');
       if (event.target === modal) {
-        modal.style.display = "none";
+        fecharModal();
       }
     }
   </script>
 </body>
 </html>
-
