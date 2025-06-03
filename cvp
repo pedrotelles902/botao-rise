@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Interativa</title>
+  <style>
+    body {
+      background-color: #f5f5f5;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .calculadora {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 30px;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #resultado {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #222;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculadora">
+    <h2>Calculadora Simples</h2>
+
+    <label for="valor1">Valor 1:</label>
+    <input type="number" id="valor1" placeholder="Digite o primeiro número">
+
+    <label for="valor2">Valor 2:</label>
+    <input type="number" id="valor2" placeholder="Digite o segundo número">
+
+    <button onclick="calcular()">Somar</button>
+
+    <div id="resultado"></div>
+  </div>
+
+  <script>
+    function calcular() {
+      const v1 = parseFloat(document.getElementById("valor1").value);
+      const v2 = parseFloat(document.getElementById("valor2").value);
+      const resultado = document.getElementById("resultado");
+
+      if (!isNaN(v1) && !isNaN(v2)) {
+        const soma = v1 + v2;
+        resultado.textContent = `Resultado: ${soma.toFixed(2)}`;
+      } else {
+        resultado.textContent = "Por favor, preencha os dois campos com números válidos.";
+      }
+    }
+  </script>
+</body>
+</html>
