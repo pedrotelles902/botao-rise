@@ -3,28 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Calculadora Interativa Responsiva</title>
+  <title>App com Modal</title>
   <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       background-color: #f5f5f5;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       padding: 20px;
-      margin: 0;
       display: flex;
       justify-content: center;
     }
 
-    .calculadora {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    .container {
+      background-color: white;
+      border-radius: 12px;
       padding: 30px;
-      max-width: 100%; /* agora ocupa 100% do espaço disponível */
       width: 100%;
-      box-sizing: border-box;
+      max-width: 600px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
     }
 
-    h2 {
+    h1 {
+      font-size: 1.8rem;
       margin-bottom: 20px;
       color: #333;
       text-align: center;
@@ -32,30 +37,31 @@
 
     label {
       display: block;
-      margin-bottom: 10px;
-      font-weight: bold;
+      margin-top: 20px;
+      font-weight: 600;
+      color: #444;
     }
 
     input {
       width: 100%;
-      padding: 10px;
-      margin-bottom: 20px;
+      padding: 12px;
+      margin-top: 8px;
       border: 1px solid #ccc;
       border-radius: 6px;
-      box-sizing: border-box;
       font-size: 1rem;
     }
 
     button {
+      margin-top: 20px;
       width: 100%;
-      padding: 12px;
       background-color: #007bff;
+      color: white;
+      padding: 14px;
+      font-size: 1rem;
       border: none;
       border-radius: 6px;
-      color: white;
-      font-size: 16px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background 0.3s ease;
     }
 
     button:hover {
@@ -63,40 +69,104 @@
     }
 
     #resultado {
-      margin-top: 20px;
-      font-size: 18px;
-      color: #222;
+      margin-top: 25px;
+      font-size: 1.2rem;
       text-align: center;
-      word-wrap: break-word;
+      color: #222;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 99;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    .close {
+      color: #aaa;
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: black;
     }
   </style>
 </head>
 <body>
-  <div class="calculadora">
-    <h2>Calculadora Simples</h2>
+  <div class="container">
+    <h1>App com Modal</h1>
 
-    <label for="valor1">Valor 1:</label>
-    <input type="number" id="valor1" placeholder="Digite o primeiro número" />
+    <label for="nome">Seu Nome:</label>
+    <input type="text" id="nome" placeholder="Digite seu nome" />
 
-    <label for="valor2">Valor 2:</label>
-    <input type="number" id="valor2" placeholder="Digite o segundo número" />
+    <label for="idade">Sua Idade:</label>
+    <input type="number" id="idade" placeholder="Digite sua idade" />
 
-    <button onclick="calcular()">Somar</button>
+    <button onclick="mostrarResultado()">Enviar</button>
+    <button onclick="abrirModal()">Informações do Curso</button>
 
     <div id="resultado"></div>
   </div>
 
-  <script>
-    function calcular() {
-      const v1 = parseFloat(document.getElementById('valor1').value);
-      const v2 = parseFloat(document.getElementById('valor2').value);
-      const resultado = document.getElementById('resultado');
+  <!-- Modal -->
+  <div id="meuModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="fecharModal()">&times;</span>
+      <h2>Sobre o Curso</h2>
+      <p>Este curso foi desenvolvido para ajudar você a compreender conceitos-chave de forma prática e interativa.</p>
+      <p>Você aprenderá no seu ritmo, com simulações, quizzes e conteúdo multimídia.</p>
+      <p><strong>Duração:</strong> 4 semanas<br><strong>Nível:</strong> Iniciante<br><strong>Certificação:</strong> Sim</p>
+    </div>
+  </div>
 
-      if (!isNaN(v1) && !isNaN(v2)) {
-        const soma = v1 + v2;
-        resultado.textContent = `Resultado: ${soma.toFixed(2)}`;
+  <script>
+    function mostrarResultado() {
+      const nome = document.getElementById('nome').value.trim();
+      const idade = document.getElementById('idade').value.trim();
+      const res = document.getElementById('resultado');
+
+      if (nome && idade) {
+        res.textContent = `Olá, ${nome}! Você tem ${idade} anos.`;
       } else {
-        resultado.textContent = 'Por favor, preencha os dois campos com números válidos.';
+        res.textContent = 'Preencha todos os campos.';
+      }
+    }
+
+    function abrirModal() {
+      document.getElementById('meuModal').style.display = 'block';
+    }
+
+    function fecharModal() {
+      document.getElementById('meuModal').style.display = 'none';
+    }
+
+    // Fecha o modal ao clicar fora dele
+    window.onclick = function(event) {
+      const modal = document.getElementById('meuModal');
+      if (event.target === modal) {
+        modal.style.display = "none";
       }
     }
   </script>
